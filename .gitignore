@@ -1,0 +1,6 @@
+BEntities/bin/
+BEntities/obj/
+BEntitiesTests/bin/
+BEntitiesTests/obj/
+packages/
+.vs/
