@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 
 namespace BEntities
@@ -139,9 +137,14 @@ namespace BEntities
             _service.ProcessComponentsForRegistering();
         }
 
-        public void UnloadContent()
+        public void DestroyAllEntities()
         {
             _service.DestroyAllEntitiesImmediately();
+        }
+
+        public void UnloadContent()
+        {
+            DestroyAllEntities();
         }
 
         public Entity CreateEntity()

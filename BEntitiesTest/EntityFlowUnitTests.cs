@@ -3,7 +3,7 @@ using BEntities;
 using BEntities.Components;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace BEntitiesTests
+namespace BEntitiesTest
 {
     [TestClass]
     public class EntityFlowUnitTests

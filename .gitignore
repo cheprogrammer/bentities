@@ -4,3 +4,6 @@ BEntitiesTests/bin/
 BEntitiesTests/obj/
 packages/
 .vs/
+BEntitiesTest/bin/
+BEntitiesTest/obj/Debug/BEntitiesTest.csproj.CopyComplete
+BEntitiesTest/obj/

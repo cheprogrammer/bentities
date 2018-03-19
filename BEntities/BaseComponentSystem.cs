@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 
 namespace BEntities
@@ -34,7 +32,7 @@ namespace BEntities
 
         internal bool IsAppliableComponent(BaseComponent component)
         {
-            return ComponentTypes.Any(e => e == component.GetType());
+            return ComponentTypes.Any(e => e == component.GetType() || component.GetType().IsAssignableFrom(e));
         }
 
         internal void RegisterComponent(BaseComponent component)

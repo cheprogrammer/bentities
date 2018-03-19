@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BEntities.Components;
 
 namespace BEntities
@@ -81,6 +78,12 @@ namespace BEntities
             }
 
             return null;
+        }
+
+        public void Destroy()
+        {
+            Service.DestroyEntity(this);
+            Service = null;
         }
 
         public override string ToString()

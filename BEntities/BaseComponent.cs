@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BEntities.Components;
-using Microsoft.Xna.Framework;
+﻿using BEntities.Components;
 
 namespace BEntities
 {
-    public class BaseComponent
+    public abstract class BaseComponent
     {
         /// <summary>
         /// Gets the source entity
@@ -19,7 +13,7 @@ namespace BEntities
 
         public bool MarkedToBeRemoved { get; internal set; } = false;
 
-        internal BaseComponent()
+        public BaseComponent()
         {
             
         }
