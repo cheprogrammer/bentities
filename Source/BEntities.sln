@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BEntities", "BEntities\BEnt
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BEntitiesTest", "BEntitiesTest\BEntitiesTest.csproj", "{805A5421-2CD5-48F5-A686-CCF5D14B5907}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoProject", "..\Examples\DemoProject\DemoProject.csproj", "{B6669DBF-9BBC-4A90-8A36-6A1A68E41C24}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{805A5421-2CD5-48F5-A686-CCF5D14B5907}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{805A5421-2CD5-48F5-A686-CCF5D14B5907}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{805A5421-2CD5-48F5-A686-CCF5D14B5907}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6669DBF-9BBC-4A90-8A36-6A1A68E41C24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6669DBF-9BBC-4A90-8A36-6A1A68E41C24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6669DBF-9BBC-4A90-8A36-6A1A68E41C24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6669DBF-9BBC-4A90-8A36-6A1A68E41C24}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

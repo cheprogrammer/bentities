@@ -7,3 +7,10 @@ packages/
 BEntitiesTest/bin/
 BEntitiesTest/obj/Debug/BEntitiesTest.csproj.CopyComplete
 BEntitiesTest/obj/
+Examples/DemoProject/bin/
+Examples/DemoProject/obj/
+Source/BEntities/bin/
+Source/BEntities/obj/
+Source/BEntitiesTest/bin/
+Source/BEntitiesTest/obj/
+Source/BEntitiesTest/BEntitiesTest.csproj.user
