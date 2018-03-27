@@ -9,7 +9,7 @@ namespace BEntities
         /// <summary>
         /// Dictionary of registered entities
         /// </summary>
-        internal Dictionary<int, Entity> Entities { get; set; } = new Dictionary<int, Entity>();
+        internal Dictionary<int, Entity> Entities { get; set; } = new Dictionary<int, Entity>(128);
 
         private int _maxId = 0;
 
@@ -116,7 +116,7 @@ namespace BEntities
             {
                 BaseComponent component = ComponentsForRegistering.Dequeue();
 
-                foreach (BaseComponentSystem baseComponentSystem in DrawSystems)
+                foreach (BaseComponentProcessingSystem baseComponentSystem in DrawSystems)
                 {
                     if (baseComponentSystem.IsAppliableComponent(component))
                     {
@@ -124,7 +124,7 @@ namespace BEntities
                     }
                 }
 
-                foreach (BaseComponentSystem baseComponentSystem in UpdateSystems)
+                foreach (BaseComponentProcessingSystem baseComponentSystem in UpdateSystems)
                 {
                     if (baseComponentSystem.IsAppliableComponent(component))
                     {
@@ -143,7 +143,7 @@ namespace BEntities
             {
                 BaseComponent component = ComponentsForRemoving.Dequeue();
 
-                foreach (BaseComponentSystem baseComponentSystem in DrawSystems)
+                foreach (BaseComponentProcessingSystem baseComponentSystem in DrawSystems)
                 {
                     if (baseComponentSystem.IsAppliableComponent(component))
                     {
@@ -151,7 +151,7 @@ namespace BEntities
                     }
                 }
 
-                foreach (BaseComponentSystem baseComponentSystem in UpdateSystems)
+                foreach (BaseComponentProcessingSystem baseComponentSystem in UpdateSystems)
                 {
                     if (baseComponentSystem.IsAppliableComponent(component))
                     {
@@ -159,10 +159,14 @@ namespace BEntities
                     }
                 }
 
-                component.Entity.AttachedComponents.Remove(component.GetType());
+				// perform manual resetting of internal caching variable for transform component
+				if (component.GetType() == typeof(Transform2DComponent))
+					component.SourceEntity._transform = null;
+
+                component.SourceEntity.AttachedComponents.Remove(component.GetType());
 
                 component.MarkedToBeRemoved = false;
-                component.Entity = null;
+                component.SourceEntity = null;
             } 
         }
 
@@ -175,7 +179,7 @@ namespace BEntities
         {
             T component = new T
             {
-                Entity = entity
+                SourceEntity = entity
             };
 
             entity.AttachedComponents[typeof(T)] = component;
@@ -211,5 +215,5 @@ namespace BEntities
             ProcessComponentsForRemoving();
             ProcessEntitiesForRemoving();
         }
-    }
+	}
 }

@@ -7,9 +7,9 @@ namespace BEntities
         /// <summary>
         /// Gets the source entity
         /// </summary>
-        internal Entity Entity { get; set; }
+        internal Entity SourceEntity { get; set; }
 
-        public Transform2DComponent Transform => Entity.Transform;
+        public Transform2DComponent Transform => SourceEntity.Transform;
 
         public bool MarkedToBeRemoved { get; internal set; } = false;
 
@@ -25,7 +25,7 @@ namespace BEntities
 
         public T GetComponent<T>() where T: BaseComponent
         {
-            return Entity.GetComponent<T>();
+            return SourceEntity.GetComponent<T>();
         }
     }
 }

@@ -12,14 +12,20 @@ namespace BEntities
 
         internal ECSService Service { get; set; }
 
+		// used for caching of transform components
+		internal Transform2DComponent _transform = null;
+
         public Transform2DComponent Transform
         {
             get
             {
+				if (_transform != null)
+					return _transform;
+
                 BaseComponent result;
 
                 if (AttachedComponents.TryGetValue(typeof(Transform2DComponent), out result))
-                    return (Transform2DComponent)result;
+                    return (_transform = (Transform2DComponent)result);
 
                 return null;
             }
@@ -36,26 +42,29 @@ namespace BEntities
             Service = sourceService;
         }
 
-        /// <summary>
-        /// Attaches component of specified type to current entity
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        public T AttachComponent<T>() where T : BaseComponent, new()
+		/// <summary>
+		/// Attaches component of specified type to current entity
+		/// This component will be attached at the start of next update procedure
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		public T AttachComponent<T>() where T : BaseComponent, new()
         {
             return Service.AttachComponent<T>(this);
         }
 
-        /// <summary>
-        /// Detaches and releases component from current entity
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        public void DetachComponent<T>() where T : BaseComponent
+		/// <summary>
+		/// Detaches component from current entity
+		/// This component will be removed at the end of current update procedure
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		public void DetachComponent<T>() where T : BaseComponent
         {
             DetachComponent(typeof(T));
         }
 
         /// <summary>
-        /// Detaches and releases component from current entity
+        /// Detaches component from current entity
+		/// This component will be removed at the end of current update procedure
         /// </summary>
         /// <param name="componentType"></param>
         public void DetachComponent(Type componentType)
@@ -68,6 +77,11 @@ namespace BEntities
             return AttachedComponents.Values;
         }
 
+		/// <summary>
+		/// Gets attached Component
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <returns>Attached component of specified Type or Null if there is no attached component of specified Type</returns>
         public T GetComponent<T>() where T : BaseComponent
         {
             BaseComponent result;
@@ -80,15 +94,26 @@ namespace BEntities
             return null;
         }
 
+		/// <summary>
+		/// Destroy current entity
+		/// All components of current entity will be detached and destroyed at the end of current update procedure
+		/// </summary>
         public void Destroy()
         {
             Service.DestroyEntity(this);
-            Service = null;
+
+			// set servive reference as null for avoiding memory leak
+			Service = null;
         }
 
         public override string ToString()
         {
             return $"{Id}: {Name}";
         }
-    }
+
+		public override int GetHashCode()
+		{
+			return Id;
+		}
+	}
 }

@@ -6,40 +6,25 @@ using Microsoft.Xna.Framework;
 
 namespace BEntities
 {
-    public class EntityComponentSystemManager
+	/// <summary>
+	/// Entity Component System manager class which is resposible for Entity creation, Systems registering and processing
+	/// Incapsulates all interaction with internal ECS Service
+	/// </summary>
+    public class ECSManager
     {
         private readonly ECSService _service = new ECSService();
+        
+		internal ECSManager()
+		{
 
-        private static readonly List<Type> AvailableSystems = new List<Type>();
-
-        /// <summary>
-        /// Performs initial scan of assemblies for EC Systems
-        /// </summary>
-        /// <param name="assemblies"></param>
-        public static void ScanAssemblies(params Assembly[] assemblies)
-        {
-            foreach (Assembly assembly in assemblies)
-            {
-                Type[] types = assembly.GetExportedTypes();
-
-                foreach (Type type in types)
-                {
-                    // checking types for registering systems
-                    if (typeof(BaseComponentSystem).IsAssignableFrom(type) &&
-                        type.GetCustomAttribute<ComponentSystemAttribute>() != null)
-                    {
-                        AvailableSystems.Add(type);
-                    }
-                }
-            }
-        }
-
-        /// <summary>
+		}
+		
+		/// <summary>
         /// Tetrieves the system by its type
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public T GetSystem<T>() where T : BaseComponentSystem
+        public T GetSystem<T>() where T : BaseComponentProcessingSystem
         {
             var result = _service.UpdateSystems.FirstOrDefault(e => e.GetType() == typeof(T));
             if (result != null)
@@ -53,7 +38,7 @@ namespace BEntities
         /// Registers system by its type and performs all necessary initialization routine
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        public void RegisterSystem<T>() where T : BaseComponentSystem
+        public void RegisterSystem<T>() where T : BaseComponentProcessingSystem
         {
             RegisterSystem(typeof(T));
         }
@@ -66,7 +51,7 @@ namespace BEntities
             if(!typeof(BaseComponentSystem).IsAssignableFrom(type))
                 throw new ArgumentException($"EC System of type {type.Name} is not inherited from {nameof(BaseComponentSystem)}");
 
-            BaseComponentSystem system = (BaseComponentSystem)Activator.CreateInstance(type);
+			BaseComponentSystem system = (BaseComponentSystem)Activator.CreateInstance(type);
             system.PreInitialize();
 
             if (system.SystemType == SystemProcessingType.Draw)
@@ -87,11 +72,11 @@ namespace BEntities
         /// <summary>
         /// Performs initialization of all scanned systems
         /// </summary>
-        public void Initialize()
+        internal void Initialize(IEnumerable<Type> availableSystems)
         {
-            foreach (Type availableSystem in AvailableSystems)
+            foreach (Type availableSystem in availableSystems)
             {
-                BaseComponentSystem system = (BaseComponentSystem)Activator.CreateInstance(availableSystem);
+                BaseComponentProcessingSystem system = (BaseComponentProcessingSystem)Activator.CreateInstance(availableSystem);
                 system.PreInitialize();
 
                 if (system.SystemType == SystemProcessingType.Draw)
@@ -104,12 +89,12 @@ namespace BEntities
             _service.UpdateSystems.Sort((system1, system2) => system1.Order - system2.Order);
             _service.DrawSystems.Sort((system1, system2) => system1.Order - system2.Order);
 
-            foreach (BaseComponentSystem system in _service.UpdateSystems)
+            foreach (BaseComponentProcessingSystem system in _service.UpdateSystems)
             {
                 system.Initialize();
             }
 
-            foreach (BaseComponentSystem system in _service.DrawSystems)
+            foreach (BaseComponentProcessingSystem system in _service.DrawSystems)
             {
                 system.Initialize();
             }
@@ -117,9 +102,9 @@ namespace BEntities
 
         public void Draw(GameTime gameTime)
         {
-            foreach (BaseComponentSystem baseComponentSystem in _service.DrawSystems)
+            foreach (BaseComponentProcessingSystem baseComponentSystem in _service.DrawSystems)
             {
-                baseComponentSystem.Process(gameTime);
+                baseComponentSystem.Step(gameTime);
             }
         }
 
@@ -128,9 +113,9 @@ namespace BEntities
             _service.ProcessComponentsForRemoving();
             _service.ProcessEntitiesForRemoving();
 
-            foreach (BaseComponentSystem serviceUpdateSystem in _service.UpdateSystems)
+            foreach (BaseComponentProcessingSystem serviceUpdateSystem in _service.UpdateSystems)
             {
-                serviceUpdateSystem.Process(gameTime);
+                serviceUpdateSystem.Step(gameTime);
             }
 
             _service.ProcessEntitiesForAdding();

@@ -10,14 +10,13 @@ namespace BEntitiesTest
     {
         public EntityFlowUnitTests()
         {
-            EntityComponentSystemManager.ScanAssemblies(AppDomain.CurrentDomain.GetAssemblies());
+			ECSManagerFactory.ScanAssemblies(AppDomain.CurrentDomain.GetAssemblies());
         }
 
         [TestMethod]
         public void EntityCreationAndRetrievingBasicComponent()
         {
-            EntityComponentSystemManager manager = new EntityComponentSystemManager();
-            manager.Initialize();
+            ECSManager manager = ECSManagerFactory.CreateECSManager();
 
             Entity newEntity = manager.CreateEntity();
 

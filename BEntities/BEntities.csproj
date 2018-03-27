@@ -38,8 +38,9 @@
       <HintPath>..\packages\MonoGame.Framework.Portable.3.6.0.1625\lib\portable-net45+win8+wpa81\MonoGame.Framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\IVNGame\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -52,12 +53,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseComponent.cs" />
+    <Compile Include="BaseComponentProcessingSystem.cs" />
     <Compile Include="BaseComponentSystem.cs" />
     <Compile Include="ComponentEventHandler.cs" />
     <Compile Include="ComponentSystemAttribute.cs" />
+    <Compile Include="ECSManagerFactory.cs" />
     <Compile Include="ECSService.cs" />
     <Compile Include="Entity.cs" />
-    <Compile Include="EntityComponentSystemManager.cs" />
+    <Compile Include="ECSManager.cs" />
     <Compile Include="EntityEventHandler.cs" />
     <Compile Include="INotifyPropertyChangedExtended.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
