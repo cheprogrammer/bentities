@@ -41,18 +41,28 @@ namespace BEntities
         internal Entity CreateEntity()
         {
             Entity entity = new Entity(this);
-            EntitiesForAdding.Enqueue(entity);
 
-            // it is necessary to attach default component - Transform2D
-            entity.AttachComponent<Transform2DComponent>().Reset();
+			if (_freeIds.Count != 0)
+			{
+				entity.Id = _freeIds.Dequeue();
+			}
+			else
+			{
+				entity.Id = ++_maxId;
+			}
+
+			EntitiesForAdding.Enqueue(entity);
+
+			// it is necessary to attach default component - Transform2D
+			entity.AttachComponent<Transform2DComponent>().Reset();
 
             return entity;
         }
 
         internal void DestroyEntity(Entity entity)
         {
-            if(entity.MarkedToBeRemoved)
-                return;
+			if (entity.MarkedToBeRemoved)
+				return;
 
             foreach (KeyValuePair<Type, BaseComponent> entityAttachedComponent in entity.AttachedComponents)
             {
@@ -71,15 +81,6 @@ namespace BEntities
             while (EntitiesForAdding.Count != 0)
             {
                 Entity entity = EntitiesForAdding.Dequeue();
-
-                if (_freeIds.Count != 0)
-                {
-                    entity.Id = _freeIds.Dequeue();
-                }
-                else
-                {
-                    entity.Id = ++_maxId;
-                }
 
                 Entities[entity.Id] = entity;
 

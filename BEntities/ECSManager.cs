@@ -100,6 +100,10 @@ namespace BEntities
             }
         }
 
+		/// <summary>
+		/// Performs the step procedure for Drawning systems
+		/// </summary>
+		/// <param name="gameTime"></param>
         public void Draw(GameTime gameTime)
         {
             foreach (BaseComponentProcessingSystem baseComponentSystem in _service.DrawSystems)
@@ -108,6 +112,10 @@ namespace BEntities
             }
         }
 
+		/// <summary>
+		/// Performs step procedure for Updating systems
+		/// </summary>
+		/// <param name="gameTime"></param>
         public void Update(GameTime gameTime)
         {
             _service.ProcessComponentsForRemoving();
@@ -122,11 +130,15 @@ namespace BEntities
             _service.ProcessComponentsForRegistering();
         }
 
+		/// <summary>
+		/// Performs the immediate destruction of all registered entities
+		/// </summary>
         public void DestroyAllEntities()
         {
             _service.DestroyAllEntitiesImmediately();
         }
 
+		// Performs 
         public void UnloadContent()
         {
             DestroyAllEntities();
