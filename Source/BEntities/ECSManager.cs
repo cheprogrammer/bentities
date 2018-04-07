@@ -23,7 +23,7 @@ namespace BEntities
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public T GetSystem<T>() where T : BaseComponentProcessingSystem
+        public T GetSystem<T>() where T : BaseComponentSystem
         {
             var result = _service.UpdateSystems.FirstOrDefault(e => e.GetType() == typeof(T));
             if (result != null)
@@ -37,7 +37,7 @@ namespace BEntities
         /// Registers system by its type and performs all necessary initialization routine
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        public void RegisterSystem<T>() where T : BaseComponentProcessingSystem
+        public void RegisterSystem<T>() where T : BaseComponentSystem
         {
             RegisterSystem(typeof(T));
         }
@@ -75,7 +75,7 @@ namespace BEntities
         {
             foreach (Type availableSystem in availableSystems)
             {
-                BaseComponentProcessingSystem system = (BaseComponentProcessingSystem)Activator.CreateInstance(availableSystem);
+                BaseComponentSystem system = (BaseComponentSystem)Activator.CreateInstance(availableSystem);
                 system.PreInitialize();
 
                 if (system.SystemType == SystemProcessingType.Draw)
@@ -88,12 +88,12 @@ namespace BEntities
             _service.UpdateSystems.Sort((system1, system2) => system1.Order - system2.Order);
             _service.DrawSystems.Sort((system1, system2) => system1.Order - system2.Order);
 
-            foreach (BaseComponentProcessingSystem system in _service.UpdateSystems)
+            foreach (BaseComponentSystem system in _service.UpdateSystems)
             {
                 system.Initialize();
             }
 
-            foreach (BaseComponentProcessingSystem system in _service.DrawSystems)
+            foreach (BaseComponentSystem system in _service.DrawSystems)
             {
                 system.Initialize();
             }
@@ -105,7 +105,7 @@ namespace BEntities
 		/// <param name="gameTime"></param>
         public void Draw(GameTime gameTime)
         {
-            foreach (BaseComponentProcessingSystem baseComponentSystem in _service.DrawSystems)
+            foreach (BaseComponentSystem baseComponentSystem in _service.DrawSystems)
             {
                 baseComponentSystem.Step(gameTime);
             }
@@ -120,7 +120,7 @@ namespace BEntities
             _service.ProcessComponentsForRemoving();
             _service.ProcessEntitiesForRemoving();
 
-            foreach (BaseComponentProcessingSystem serviceUpdateSystem in _service.UpdateSystems)
+            foreach (BaseComponentSystem serviceUpdateSystem in _service.UpdateSystems)
             {
                 serviceUpdateSystem.Step(gameTime);
             }

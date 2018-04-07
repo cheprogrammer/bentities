@@ -117,7 +117,7 @@ namespace BEntities
             {
                 BaseComponent component = ComponentsForRegistering.Dequeue();
 
-                foreach (BaseComponentProcessingSystem baseComponentSystem in DrawSystems)
+                foreach (BaseComponentSystem baseComponentSystem in DrawSystems)
                 {
                     if (baseComponentSystem.IsAppliableComponent(component))
                     {
@@ -125,7 +125,7 @@ namespace BEntities
                     }
                 }
 
-                foreach (BaseComponentProcessingSystem baseComponentSystem in UpdateSystems)
+                foreach (BaseComponentSystem baseComponentSystem in UpdateSystems)
                 {
                     if (baseComponentSystem.IsAppliableComponent(component))
                     {
@@ -144,7 +144,7 @@ namespace BEntities
             {
                 BaseComponent component = ComponentsForRemoving.Dequeue();
 
-                foreach (BaseComponentProcessingSystem baseComponentSystem in DrawSystems)
+                foreach (BaseComponentSystem baseComponentSystem in DrawSystems)
                 {
                     if (baseComponentSystem.IsAppliableComponent(component))
                     {
@@ -152,7 +152,7 @@ namespace BEntities
                     }
                 }
 
-                foreach (BaseComponentProcessingSystem baseComponentSystem in UpdateSystems)
+                foreach (BaseComponentSystem baseComponentSystem in UpdateSystems)
                 {
                     if (baseComponentSystem.IsAppliableComponent(component))
                     {

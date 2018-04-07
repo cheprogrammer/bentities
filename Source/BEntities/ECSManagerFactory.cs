@@ -28,7 +28,7 @@ namespace BEntities
 				foreach (Type type in types)
 				{
 					// checking types for registering systems
-					if (typeof(BaseComponentProcessingSystem).IsAssignableFrom(type) &&
+					if (typeof(BaseComponentSystem).IsAssignableFrom(type) &&
 						type.GetCustomAttribute<ComponentSystemAttribute>() != null)
 					{
 						AvailableSystems.Add(type);
