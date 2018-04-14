@@ -49,14 +49,14 @@ namespace BEntities
 
 		internal void OnComponentRegisteredInternal(BaseComponent component)
 		{
-			ComponentRegistered(component);
-			OnComponentRegistered?.Invoke(component);
+			ComponentRegistered(component.SourceEntity, component);
+			OnComponentRegistered?.Invoke(component.SourceEntity, component);
 		}
 
 		internal void OnComponentRemovedInternal(BaseComponent component)
 		{
-			ComponentRemoved(component);
-			OnComponentRemoved?.Invoke(component);
+			ComponentRemoved(component.SourceEntity, component);
+			OnComponentRemoved?.Invoke(component.SourceEntity, component);
 		}
 
 		#endregion
@@ -93,12 +93,12 @@ namespace BEntities
 
 		}
 
-		protected virtual void ComponentRegistered(BaseComponent component)
+		protected virtual void ComponentRegistered(Entity entity, BaseComponent component)
 		{
 
 		}
 
-		protected virtual void ComponentRemoved(BaseComponent component)
+		protected virtual void ComponentRemoved(Entity entity, BaseComponent component)
 		{
 
 		}

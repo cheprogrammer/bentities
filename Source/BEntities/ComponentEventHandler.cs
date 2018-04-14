@@ -1,4 +1,4 @@
 namespace BEntities
 {
-    public delegate void ComponentEventHandler(BaseComponent component);
+    public delegate void ComponentEventHandler(Entity entity, BaseComponent component);
 }
