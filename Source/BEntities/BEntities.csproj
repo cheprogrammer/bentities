@@ -62,11 +62,13 @@
     <Compile Include="Entity.cs" />
     <Compile Include="ECSManager.cs" />
     <Compile Include="EntityEventHandler.cs" />
+    <Compile Include="ExecutableComponent.cs" />
     <Compile Include="INotifyPropertyChangedExtended.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyChangedExtendedEventArgs.cs" />
     <Compile Include="SystemProcessingType.cs" />
     <Compile Include="Components\Transform2DComponent.cs" />
+    <Compile Include="Systems\ExecutableComponentsProcessingSystem.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

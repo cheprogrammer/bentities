@@ -100,6 +100,9 @@ namespace BEntities
 		/// </summary>
         public void Destroy()
         {
+            if(MarkedToBeRemoved)
+                return;
+
             Service.DestroyEntity(this);
 
 			// set servive reference as null for avoiding memory leak

@@ -23,7 +23,7 @@ namespace BEntities
 
 			foreach (Assembly assembly in assemblies)
 			{
-				Type[] types = assembly.GetExportedTypes();
+				Type[] types = assembly.GetTypes();
 
 				foreach (Type type in types)
 				{
