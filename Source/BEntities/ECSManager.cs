@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using NLog;
 
 namespace BEntities
 {
@@ -11,6 +12,8 @@ namespace BEntities
 	/// </summary>
     public class ECSManager
     {
+        private static readonly Logger Log = LogManager.GetCurrentClassLogger();
+
         private readonly ECSService _service = new ECSService();
         
 		internal ECSManager()
@@ -75,7 +78,17 @@ namespace BEntities
         {
             foreach (Type availableSystem in availableSystems)
             {
-                BaseComponentSystem system = (BaseComponentSystem)Activator.CreateInstance(availableSystem);
+                BaseComponentSystem system = null;
+                try
+                {
+                    system = (BaseComponentSystem) Activator.CreateInstance(availableSystem);
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(ex, $"Unable to create system '{availableSystem.Name}'");
+                    continue;
+                }
+
                 system.PreInitialize();
 
                 if (system.SystemType == SystemProcessingType.Draw)
