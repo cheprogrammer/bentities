@@ -117,6 +117,9 @@ namespace BEntities
             {
                 BaseComponent component = ComponentsForRegistering.Dequeue();
 
+                // call 'Initialize' foe every new component
+                component.Initialize();
+
                 foreach (BaseComponentSystem baseComponentSystem in DrawSystems)
                 {
                     if (baseComponentSystem.IsAppliableComponent(component))

@@ -13,9 +13,12 @@ namespace BEntities
 
         public bool MarkedToBeRemoved { get; internal set; } = false;
 
-        public BaseComponent()
+        /// <summary>
+        /// Performs initialization of Base component on registering it in systems
+        /// </summary>
+        public virtual void Initialize()
         {
-            
+
         }
 
         public virtual void Reset()
@@ -26,6 +29,11 @@ namespace BEntities
         public T GetComponent<T>() where T: BaseComponent
         {
             return SourceEntity.GetComponent<T>();
+        }
+
+        public T GetComponentInParent<T>() where T : BaseComponent
+        {
+            return SourceEntity.GetComponentInParent<T>();
         }
     }
 }

@@ -94,6 +94,21 @@ namespace BEntities
             return null;
         }
 
+        public T GetComponentInParent<T>() where T : BaseComponent
+        {
+            BaseComponent result = GetComponent<T>();
+
+            if (result == null)
+            {
+                result = Transform.Parent.SourceEntity.GetComponentInParent<T>();
+
+                if (result != null)
+                    return (T) result;
+            }
+
+            return null;
+        }
+
 		/// <summary>
 		/// Destroy current entity
 		/// All components of current entity will be detached and destroyed at the end of current update procedure
