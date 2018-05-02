@@ -82,7 +82,7 @@ namespace BEntities
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <returns>Attached component of specified Type or Null if there is no attached component of specified Type</returns>
-        public T GetComponent<T>() where T : BaseComponent
+        public T GetComponentOrDefault<T>() where T : BaseComponent
         {
             BaseComponent result;
 
@@ -94,13 +94,13 @@ namespace BEntities
             return null;
         }
 
-        public T GetComponentInParent<T>() where T : BaseComponent
+        public T GetComponentInParentDefault<T>() where T : BaseComponent
         {
-            BaseComponent result = GetComponent<T>();
+            BaseComponent result = GetComponentOrDefault<T>();
 
             if (result == null)
             {
-                result = Transform.Parent.SourceEntity.GetComponentInParent<T>();
+                result = Transform.Parent.SourceEntity.GetComponentInParentDefault<T>();
 
                 if (result != null)
                     return (T) result;

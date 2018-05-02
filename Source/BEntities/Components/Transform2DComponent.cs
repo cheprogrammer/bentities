@@ -167,11 +167,6 @@ namespace BEntities.Components
 
         internal event Action TransformBecameDirty;
 
-        public void Initialize()
-        {
-            Reset();
-        }
-
         public override void Reset()
         {
             Parent = null;

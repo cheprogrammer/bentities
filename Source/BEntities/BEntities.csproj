@@ -63,6 +63,7 @@
     <Compile Include="BaseComponent.cs" />
     <Compile Include="BaseComponentProcessingSystem.cs" />
     <Compile Include="BaseComponentSystem.cs" />
+    <Compile Include="BaseTemplate.cs" />
     <Compile Include="ComponentEventHandler.cs" />
     <Compile Include="ComponentSystemAttribute.cs" />
     <Compile Include="ECSManagerFactory.cs" />

@@ -38,6 +38,8 @@ namespace BEntities
 
         internal List<BaseComponentSystem> UpdateSystems { get; set; } = new List<BaseComponentSystem>();
 
+        internal Dictionary<Type, BaseTemplate> Templates { get; set; } 
+
         internal Entity CreateEntity()
         {
             Entity entity = new Entity(this);

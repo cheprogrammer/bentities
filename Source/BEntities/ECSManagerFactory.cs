@@ -13,6 +13,8 @@ namespace BEntities
 
 		private static readonly List<Type> AvailableSystems = new List<Type>();
 
+        private static  readonly List<Type> AvailableTemplates = new List<Type>();
+
 		/// <summary>
 		/// Performs initial scan of assemblies for EC Systems
 		/// </summary>
@@ -33,6 +35,11 @@ namespace BEntities
 					{
 						AvailableSystems.Add(type);
 					}
+
+				    if (typeof(BaseTemplate).IsAssignableFrom(type))
+				    {
+                        AvailableTemplates.Add(type);
+				    }
 				}
 			}
 
@@ -51,7 +58,7 @@ namespace BEntities
 			ECSManager result = new ECSManager();
 
 			// initialize ecs manager with available scanned systems
-			result.Initialize(AvailableSystems);
+			result.Initialize(AvailableSystems, AvailableTemplates);
 
 			return result;
 		}

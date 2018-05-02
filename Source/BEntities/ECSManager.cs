@@ -74,8 +74,25 @@ namespace BEntities
         /// <summary>
         /// Performs initialization of all scanned systems
         /// </summary>
-        internal void Initialize(IEnumerable<Type> availableSystems)
+        internal void Initialize(IEnumerable<Type> availableSystems, IEnumerable<Type> availableTemplates)
         {
+            // precessing templates
+            foreach (Type availableTemplateType in availableTemplates)
+            {
+                BaseTemplate template = null;
+                try
+                {
+                    template = (BaseTemplate)Activator.CreateInstance(availableTemplateType);
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(ex, $"Unable to create template '{availableTemplateType.Name}'");
+                    continue;
+                }
+
+                _service.Templates[availableTemplateType] = template;
+            }
+
             foreach (Type availableSystem in availableSystems)
             {
                 BaseComponentSystem system = null;
@@ -159,6 +176,28 @@ namespace BEntities
         public Entity CreateEntity()
         {
             return _service.CreateEntity();
+        }
+
+        /// <summary>
+        /// Performs creation of entity from template '<typeparamref name="T"/>'
+        /// </summary>
+        /// <typeparam name="T">Template Type</typeparam>
+        /// <param name="args">Argumenst which will be passed to template</param>
+        /// <returns></returns>
+        public Entity CreateEntityFromTemplate<T>(params object[] args) where T : BaseTemplate, new()
+        {
+            Entity result = _service.CreateEntity();
+
+            if (_service.Templates.TryGetValue(typeof(T), out var template))
+            {
+                template.BuildEntity(result, args);
+            }
+            else
+            {
+                Log.Error($"Unable to build entity from template '{typeof(T).Name}': this template does not registered in system");
+            }
+
+            return result;
         }
     }
 }

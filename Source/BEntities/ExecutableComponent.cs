@@ -8,14 +8,6 @@ namespace BEntities
     public abstract class ExecutableComponent : BaseComponent
     {
         /// <summary>
-        /// Performs initialization during registering stage of ECS
-        /// </summary>
-        public virtual void Initialize()
-        {
-
-        }
-
-        /// <summary>
         /// Performs update routine
         /// </summary>
         /// <param name="gameTime"></param>
