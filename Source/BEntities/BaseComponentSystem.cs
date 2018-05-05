@@ -16,9 +16,11 @@ namespace BEntities
 
 		internal List<BaseComponent> RegisteredComponents { get; } = new List<BaseComponent>();
 
+        public ECSManager ECSManager { get; private set; }
+
 		#region Internal accessibility methods 
 
-		internal void PreInitialize()
+		internal void PreInitialize(ECSManager sourceECSManager)
 		{
 			ComponentSystemAttribute systemAttribute = (ComponentSystemAttribute)this.GetType().GetCustomAttribute(typeof(ComponentSystemAttribute));
 
@@ -28,6 +30,8 @@ namespace BEntities
 			SystemType = systemAttribute.SystemProcessingType;
 			Order = systemAttribute.Order;
 			ComponentTypes = systemAttribute.Components;
+
+		    ECSManager = sourceECSManager;
 		}
 
 		internal bool IsAppliableComponent(BaseComponent component)

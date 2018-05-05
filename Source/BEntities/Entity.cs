@@ -105,6 +105,10 @@ namespace BEntities
                 if (result != null)
                     return (T) result;
             }
+            else
+            {
+                return (T) result;
+            }
 
             return null;
         }

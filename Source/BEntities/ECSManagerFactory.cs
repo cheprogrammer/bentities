@@ -36,7 +36,8 @@ namespace BEntities
 						AvailableSystems.Add(type);
 					}
 
-				    if (typeof(BaseTemplate).IsAssignableFrom(type))
+				    if (typeof(EntityTemplate).IsAssignableFrom(type) &&
+				        type.GetCustomAttribute<EntityTemplateAttribute>() != null)
 				    {
                         AvailableTemplates.Add(type);
 				    }

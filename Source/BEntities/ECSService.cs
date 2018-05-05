@@ -25,7 +25,6 @@ namespace BEntities
         /// </summary>
         internal Queue<Entity> EntitiesForRemoving { get; } = new Queue<Entity>();
 
-
         internal event EntityEventHandler OnEntityAdded;
 
         internal event EntityEventHandler OnEntityRemoved;
@@ -38,7 +37,15 @@ namespace BEntities
 
         internal List<BaseComponentSystem> UpdateSystems { get; set; } = new List<BaseComponentSystem>();
 
-        internal Dictionary<Type, BaseTemplate> Templates { get; set; } 
+        /// <summary>
+        /// Key-value cache for fast access to templates by its type
+        /// </summary>
+        internal Dictionary<Type, EntityTemplate> Templates { get; set; } = new Dictionary<Type, EntityTemplate>();
+
+        /// <summary>
+        /// Key-vlue cache for fast access to templates by its name
+        /// </summary>
+        internal Dictionary<string, EntityTemplate> TemplatesByName { get; set; } = new Dictionary<string, EntityTemplate>();
 
         internal Entity CreateEntity()
         {
@@ -119,7 +126,7 @@ namespace BEntities
             {
                 BaseComponent component = ComponentsForRegistering.Dequeue();
 
-                // call 'Initialize' foe every new component
+                // call 'InitializeInternal' for every new component
                 component.Initialize();
 
                 foreach (BaseComponentSystem baseComponentSystem in DrawSystems)

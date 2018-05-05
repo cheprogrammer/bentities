@@ -63,7 +63,7 @@
     <Compile Include="BaseComponent.cs" />
     <Compile Include="BaseComponentProcessingSystem.cs" />
     <Compile Include="BaseComponentSystem.cs" />
-    <Compile Include="BaseTemplate.cs" />
+    <Compile Include="EntityTemplate.cs" />
     <Compile Include="ComponentEventHandler.cs" />
     <Compile Include="ComponentSystemAttribute.cs" />
     <Compile Include="ECSManagerFactory.cs" />
@@ -71,6 +71,7 @@
     <Compile Include="Entity.cs" />
     <Compile Include="ECSManager.cs" />
     <Compile Include="EntityEventHandler.cs" />
+    <Compile Include="EntityTemplateAttribute.cs" />
     <Compile Include="ExecutableComponent.cs" />
     <Compile Include="INotifyPropertyChangedExtended.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

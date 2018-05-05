@@ -8,7 +8,7 @@ namespace BEntities
         /// <summary>
         /// Gets the source entity
         /// </summary>
-        internal Entity SourceEntity { get; set; }
+        public Entity SourceEntity { get; internal set; }
 
         public Transform2DComponent Transform => SourceEntity.Transform;
 

@@ -54,7 +54,7 @@ namespace BEntities
                 throw new ArgumentException($"EC System of type {type.Name} is not inherited from {nameof(BaseComponentSystem)}");
 
 			BaseComponentSystem system = (BaseComponentSystem)Activator.CreateInstance(type);
-            system.PreInitialize();
+            system.PreInitialize(this);
 
             if (system.SystemType == SystemProcessingType.Draw)
             {
@@ -72,17 +72,17 @@ namespace BEntities
         }
 
         /// <summary>
-        /// Performs initialization of all scanned systems
+        /// Performs initialization of all scanned systems and templates
         /// </summary>
         internal void Initialize(IEnumerable<Type> availableSystems, IEnumerable<Type> availableTemplates)
         {
-            // precessing templates
+            // processing templates
             foreach (Type availableTemplateType in availableTemplates)
             {
-                BaseTemplate template = null;
+                EntityTemplate template = null;
                 try
                 {
-                    template = (BaseTemplate)Activator.CreateInstance(availableTemplateType);
+                    template = (EntityTemplate)Activator.CreateInstance(availableTemplateType);
                 }
                 catch (Exception ex)
                 {
@@ -90,7 +90,10 @@ namespace BEntities
                     continue;
                 }
 
+                template.InitializeInternal();
+
                 _service.Templates[availableTemplateType] = template;
+                _service.TemplatesByName[template.Name] = template;
             }
 
             foreach (Type availableSystem in availableSystems)
@@ -106,7 +109,7 @@ namespace BEntities
                     continue;
                 }
 
-                system.PreInitialize();
+                system.PreInitialize(this);
 
                 if (system.SystemType == SystemProcessingType.Draw)
                     _service.DrawSystems.Add(system);
@@ -178,23 +181,64 @@ namespace BEntities
             return _service.CreateEntity();
         }
 
+        internal Entity CreateEntityFromTemplateInternal(EntityTemplate template, params object[] args)
+        {
+            Entity result = _service.CreateEntity();
+            template.BuildEntity(result, args);
+
+            return result;
+        }
+
         /// <summary>
-        /// Performs creation of entity from template '<typeparamref name="T"/>'
+        /// Creates entity from '<paramref name="templateType"/>' template
+        /// </summary>
+        /// <param name="templateType">Type of template</param>
+        /// <param name="args"></param>
+        /// <returns></returns>
+        public Entity CreateEntityFromTemplate(Type templateType, params object[] args)
+        {
+            Entity result = null;
+
+            if (_service.Templates.TryGetValue(templateType, out var template))
+            {
+                result = CreateEntityFromTemplateInternal(template, args);
+            }
+            else
+            {
+                Log.Error($"Unable to build entity from template '{templateType.Name}': this template does not registered in system");
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Creates entity from template '<typeparamref name="T"/>'
         /// </summary>
         /// <typeparam name="T">Template Type</typeparam>
         /// <param name="args">Argumenst which will be passed to template</param>
         /// <returns></returns>
-        public Entity CreateEntityFromTemplate<T>(params object[] args) where T : BaseTemplate, new()
+        public Entity CreateEntityFromTemplate<T>(params object[] args) where T : EntityTemplate, new()
         {
-            Entity result = _service.CreateEntity();
+            return CreateEntityFromTemplate(typeof(T), args);
+        }
 
-            if (_service.Templates.TryGetValue(typeof(T), out var template))
+        /// <summary>
+        /// Creates entuty from template by its name
+        /// </summary>
+        /// <param name="templateName"></param>
+        /// <param name="args"></param>
+        /// <returns></returns>
+        public Entity CreateEntityFromTemplate(string templateName, params object[] args)
+        {
+            Entity result = null;
+
+            if (_service.TemplatesByName.TryGetValue(templateName, out var template))
             {
-                template.BuildEntity(result, args);
+                result = CreateEntityFromTemplateInternal(template, args);
             }
             else
             {
-                Log.Error($"Unable to build entity from template '{typeof(T).Name}': this template does not registered in system");
+                Log.Error($"Unable to build entity from template with name '{templateName}': this template does not registered in system");
             }
 
             return result;
