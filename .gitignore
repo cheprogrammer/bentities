@@ -14,3 +14,5 @@ Source/BEntities/obj/
 Source/BEntitiesTest/bin/
 Source/BEntitiesTest/obj/
 Source/BEntitiesTest/BEntitiesTest.csproj.user
+Examples/DemoApplication/bin/
+Examples/DemoApplication/obj/

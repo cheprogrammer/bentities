@@ -22,7 +22,7 @@ namespace BEntitiesTest
 
             Entity newEntity = manager.CreateEntity();
 
-            Assert.IsNotNull(newEntity.GetComponent<Transform2DComponent>());
+            Assert.IsNotNull(newEntity.GetComponentOrDefault<Transform2DComponent>());
             Assert.IsNotNull(newEntity.Transform);
         }
 

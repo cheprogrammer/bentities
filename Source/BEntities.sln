@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2003
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BEntities", "BEntities\BEntities.csproj", "{BFA995CE-E7F5-4BDD-9A9A-473FF71B7B3E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BEntitiesTest", "BEntitiesTest\BEntitiesTest.csproj", "{805A5421-2CD5-48F5-A686-CCF5D14B5907}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoProject", "..\Examples\DemoProject\DemoProject.csproj", "{B6669DBF-9BBC-4A90-8A36-6A1A68E41C24}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoApplication", "..\Examples\DemoApplication\DemoApplication.csproj", "{B51F5D45-5FA1-41D2-B58B-DD4F2AF7D58B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{805A5421-2CD5-48F5-A686-CCF5D14B5907}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{805A5421-2CD5-48F5-A686-CCF5D14B5907}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{805A5421-2CD5-48F5-A686-CCF5D14B5907}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B6669DBF-9BBC-4A90-8A36-6A1A68E41C24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B6669DBF-9BBC-4A90-8A36-6A1A68E41C24}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B6669DBF-9BBC-4A90-8A36-6A1A68E41C24}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B6669DBF-9BBC-4A90-8A36-6A1A68E41C24}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B51F5D45-5FA1-41D2-B58B-DD4F2AF7D58B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B51F5D45-5FA1-41D2-B58B-DD4F2AF7D58B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B51F5D45-5FA1-41D2-B58B-DD4F2AF7D58B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B51F5D45-5FA1-41D2-B58B-DD4F2AF7D58B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

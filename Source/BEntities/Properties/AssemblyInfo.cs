@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("BEntities")]
-[assembly: AssemblyDescription("ECS Framework with common functionality")]
+[assembly: AssemblyDescription("Lightweight ECS Framework for Monogame and Monogame.Extended")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("BEntities")]
