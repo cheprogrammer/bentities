@@ -253,7 +253,7 @@ namespace BEntities.Components
         private void RecalculateLocalMatrix(out Matrix2D matrix)
         {
             matrix = Matrix2D.CreateScale(_scale) * Matrix2D.CreateRotationZ(_rotation) *
-                     Matrix2D.CreateTranslation(_position + _origin * _scale);
+                     Matrix2D.CreateTranslation(_position - (_origin * _scale));
         }
 
         protected virtual void OnPropertyChanged(object oldValue, object newValue,
