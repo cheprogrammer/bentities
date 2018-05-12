@@ -17,8 +17,8 @@ namespace DemoProject.Systems
 			// do something with component
 			TestComponent testComponent = (TestComponent)component;
 
-			testComponent.Variable1 += 0;
-			testComponent.Variable2 += "";
+			testComponent.Variable1 += 1;
+			testComponent.Variable2 += " World";
 		}
 	}
 }
