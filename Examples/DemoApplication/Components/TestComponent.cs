@@ -11,6 +11,6 @@ namespace DemoProject.Components
 	{
 		public int Variable1 { get; set; }
 
-		public string Variable2 { get; set; }
+	    public string Variable2 { get; set; } = "Hello";
 	}
 }
