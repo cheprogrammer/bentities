@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using BEntities.Components;
 
 namespace BEntities
@@ -100,6 +101,9 @@ namespace BEntities
 
             if (result == null)
             {
+                if (Transform.Parent == null)
+                    return null;
+
                 result = Transform.Parent.SourceEntity.GetComponentInParentDefault<T>();
 
                 if (result != null)
@@ -108,6 +112,34 @@ namespace BEntities
             else
             {
                 return (T) result;
+            }
+
+            return null;
+        }
+
+        public T FindComponentOrDefault<T>() where T : BaseComponent
+        {
+            var componentType = typeof(T);
+            foreach (BaseComponentSystem serviceUpdateSystem in Service.UpdateSystems)
+            {
+                if (serviceUpdateSystem.ComponentTypes.Any(e => e == componentType || componentType.IsAssignableFrom(e)))
+                {
+                    if (serviceUpdateSystem.RegisteredComponents.Count > 0 && serviceUpdateSystem.RegisteredComponents[0] is T result)
+                    {
+                        return result;
+                    }
+                }
+            }
+
+            foreach (BaseComponentSystem serviceUpdateSystem in Service.DrawSystems)
+            {
+                if (serviceUpdateSystem.ComponentTypes.Any(e => e == componentType || componentType.IsAssignableFrom(e)))
+                {
+                    if (serviceUpdateSystem.RegisteredComponents.Count > 0 && serviceUpdateSystem.RegisteredComponents[0] is T result)
+                    {
+                        return result;
+                    }
+                }
             }
 
             return null;
