@@ -36,7 +36,7 @@ namespace BEntities
 
 		internal bool IsAppliableComponent(BaseComponent component)
 		{
-			return ComponentTypes.Any(e => e == component.GetType() || component.GetType().IsAssignableFrom(e));
+			return ComponentTypes.Any(e => e == component.GetType() || e.IsInstanceOfType(component));
 		}
 
 		internal void RegisterComponent(BaseComponent component)
