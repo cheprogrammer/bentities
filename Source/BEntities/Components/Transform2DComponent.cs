@@ -173,11 +173,16 @@ namespace BEntities.Components
             _flags = TransformFlags.All;
             _localMatrix = Matrix2D.Identity;
             _worldMatrix = Matrix2D.Identity;
-            _position = Vector2.Zero;
-            _origin = Vector2.Zero;
-            _rotation = 0.0f;
-            _scale = Vector2.One;
-            _zIndex = 0;
+            
+            ResetTransformValues();
+        }
+
+        public void ResetTransformValues()
+        {
+            Position = Vector2.Zero;
+            Origin = Vector2.Zero;
+            Rotation = 0.0f;
+            Scale = Vector2.One;
         }
 
         public void GetLocalMatrix(out Matrix2D matrix)
